@@ -1,13 +1,10 @@
 package com.practice.portfolio.controller;
-
-import com.practice.portfolio.entity.ContactEntity;
 import com.practice.portfolio.services.interfaces.ContactService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/admin")
@@ -21,9 +18,13 @@ public class AdminController {
 
     @GetMapping("/readAllContacts")
     public String readAllContacts(Model model) {
-        List<ContactEntity> allContacts = contact.readAllContacts();
-        model.addAttribute("contactData",allContacts);
+        model.addAttribute("contactData",contact.readAllContacts());
         return "admin/readAllContacts";
+    }
+    @GetMapping("/deleteContactById")
+    public String deleteContact(@RequestParam int id) {
+        contact.deleteContactById(id);
+        return "redirect:/admin/readAllContacts";
     }
 
 

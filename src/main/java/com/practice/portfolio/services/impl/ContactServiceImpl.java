@@ -19,7 +19,7 @@ public class ContactServiceImpl implements ContactService {
     private final ContactRepository contactRepository;
 
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public ContactEntity saveContact(ContactDTO contactDTO) {
@@ -43,5 +43,10 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public List<ContactEntity> readAllContacts() {
         return contactRepository.findAll();
+    }
+
+    @Override
+    public void deleteContactById(int id) {
+        contactRepository.deleteById(id);
     }
 }

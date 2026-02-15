@@ -13,4 +13,5 @@ public interface ContactService {
     boolean isContactEmailExist(String email);
     List<ContactEntity> readAllContacts();
 
+    void deleteContactById(int id);
 }
