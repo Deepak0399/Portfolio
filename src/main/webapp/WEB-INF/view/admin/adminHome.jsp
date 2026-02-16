@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Admin Home</title>
 </head>
@@ -9,5 +10,7 @@
     <a href="${pageContext.request.contextPath}/client/home">Client Home</a>
     <br>
     <a href="${pageContext.request.contextPath}/admin/readAllContacts">Read All Contacts</a>
+    <br>
+    <a href="${pageContext.request.contextPath}/admin/addService">All Service</a>
 </body>
 </html>
