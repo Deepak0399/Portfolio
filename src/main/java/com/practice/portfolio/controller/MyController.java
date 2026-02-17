@@ -2,10 +2,10 @@ package com.practice.portfolio.controller;
 import com.practice.portfolio.dto.ContactDTO;
 import com.practice.portfolio.entity.ContactEntity;
 import com.practice.portfolio.services.interfaces.ContactService;
+import com.practice.portfolio.services.interfaces.ServicesService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,8 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MyController {
 
 
-    @Qualifier("contactService")
-    private final ContactService contact;
+    private final ContactService contactService;
+    private final ServicesService servicesService;
 
 
     @GetMapping("/home")
@@ -55,18 +55,19 @@ public class MyController {
             model.addAttribute("errors", bindingResult.getFieldErrors());
             return "contact";
         }
-        if (contact.isContactEmailExist(contactDTO.getEmail())) {
+        if (contactService.isContactEmailExist(contactDTO.getEmail())) {
             redirectAttributes.addFlashAttribute("result", "Already message send using same email...");
             return "redirect:client/contact";
         }
-        ContactEntity contactResponse = contact.saveContact(contactDTO);
+        ContactEntity contactResponse = contactService.saveContact(contactDTO);
         log.info("Contact saved details from controller: "+contactResponse);
         redirectAttributes.addFlashAttribute("result", "Contact Saved Successfully");
         return "redirect:/client/contact";
     }
 
     @GetMapping("/services")
-    public String services() {
+    public String services(Model model) {
+        model.addAttribute("listOfServices", servicesService.readServices());
         return "services";
     }
 }

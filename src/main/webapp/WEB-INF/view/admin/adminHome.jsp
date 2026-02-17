@@ -11,6 +11,8 @@
     <br>
     <a href="${pageContext.request.contextPath}/admin/readAllContacts">Read All Contacts</a>
     <br>
-    <a href="${pageContext.request.contextPath}/admin/addService">All Service</a>
+    <a href="${pageContext.request.contextPath}/admin/addService">Add Service</a>
+    <br>
+    <a href="${pageContext.request.contextPath}/admin/readAllServices">Read All Services</a>
 </body>
 </html>

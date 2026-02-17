@@ -28,6 +28,8 @@
         <br>
             <textarea name="description">Enter Description Here...</textarea>
         <br>
+        ${fileError}
+        <br>
         <input type="file" name="serviceFile">
         <br><br>
         <button type="submit" name="save">save</button>

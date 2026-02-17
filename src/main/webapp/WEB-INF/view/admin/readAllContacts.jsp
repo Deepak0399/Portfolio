@@ -17,7 +17,7 @@
         ${contact.name}<br>
         ${contact.subject}<br>
         ${contact.message}<br><br>
-        <a href="${pageContext.request.contextPath}/admin/deleteContactById?id=${contact.id}">DELETE</a>
+        <a href="${pageContext.request.contextPath}/admin/deleteContact?id=${contact.id}">DELETE</a>
 
     </c:forEach>
 
