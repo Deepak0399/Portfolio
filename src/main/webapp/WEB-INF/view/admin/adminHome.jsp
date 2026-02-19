@@ -14,5 +14,7 @@
     <a href="${pageContext.request.contextPath}/admin/addService">Add Service</a>
     <br>
     <a href="${pageContext.request.contextPath}/admin/readAllServices">Read All Services</a>
+    <br>
+    <a href="${pageContext.request.contextPath}/admin/uploadResume">Upload Resume</a>
 </body>
 </html>

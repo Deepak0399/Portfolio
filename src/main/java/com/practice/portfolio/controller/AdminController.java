@@ -12,13 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -75,8 +73,9 @@ public class AdminController {
         return "redirect:/admin/addService";
     }
     @GetMapping("/readAllServices")
-    public String readAllService(Model model) {
+    public String readAllService(Model model, @ModelAttribute("result") String result) {
         model.addAttribute("listOfServices", servicesService.readServices());
+        model.addAttribute("result",result);
         return "admin/readAllServices";
     }
     @GetMapping("/deleteService")
@@ -103,5 +102,38 @@ public class AdminController {
         servicesService.updateService(serviceDTO, realPath, serviceFile, id, oldFileName);
         redirectAttributes.addFlashAttribute("result", "Service Updated Successfully");
         return "redirect:/admin/readAllServices";
+    }
+    @GetMapping("/uploadResume")
+    public String uploadResume() {
+        return"admin/uploadResume";
+    }
+    @PostMapping("/uploadResume")
+    public String uploadResume(@RequestParam MultipartFile resume, RedirectAttributes redirectAttributes,
+                              HttpServletRequest request) throws IOException {
+        String realPath = request.getServletContext().getRealPath("/resume");
+
+        if (resume == null || resume.isEmpty()) {
+            redirectAttributes.addFlashAttribute("result", "Resume must be uploaded");
+            return "redirect:/admin/uploadResume";
+        }
+        long size = resume.getSize();
+        if (size > (3 * 1024 * 1024)) {
+            redirectAttributes.addFlashAttribute("result","Resume size must not exceed 3MB.");
+            return "redirect:/admin/uploadResume";
+        }
+        String resumeContentType = resume.getContentType();
+        if (resumeContentType != null  && !resumeContentType.contains("pdf")) {
+            redirectAttributes.addFlashAttribute("result", "Resume should be in PDF formate");
+            return "redirect:/admin/uploadResume";
+        }
+
+        Path path = Paths.get(realPath,"MyResume.pdf");
+        File file = path.toFile();
+        if(file.exists()) {
+            file.delete();
+        }
+        resume.transferTo(file);
+        redirectAttributes.addFlashAttribute("result", "Resume uploaded successfully");
+        return"redirect:/admin/uploadResume";
     }
 }

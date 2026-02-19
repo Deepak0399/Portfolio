@@ -13,7 +13,8 @@
     <br>
     <a href="${pageContext.request.contextPath}/admin/addService">Add Service</a>
     <br>
-
+    ${result}
+    <br>
     <c:forEach var="service" items="${listOfServices}">
         <div class="feature_item">
             <img style="width: 300px; height: auto" src="${pageContext.request.contextPath}/img/services/${service.fileName}" alt="">

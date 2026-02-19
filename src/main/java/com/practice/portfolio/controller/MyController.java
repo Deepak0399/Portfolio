@@ -3,6 +3,9 @@ import com.practice.portfolio.dto.ContactDTO;
 import com.practice.portfolio.entity.ContactEntity;
 import com.practice.portfolio.services.interfaces.ContactService;
 import com.practice.portfolio.services.interfaces.ServicesService;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Slf4j
 @Controller
@@ -44,11 +52,6 @@ public class MyController {
     @PostMapping("/saveContact")
     public String saveContact(@Valid @ModelAttribute ContactDTO contactDTO,
                               BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
-//        if (bindingResult.hasErrors()) {
-//            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-//                String defaultMessage = fieldError.getDefaultMessage();
-//            }
-//        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("result", "Invalid Input");
@@ -69,5 +72,15 @@ public class MyController {
     public String services(Model model) {
         model.addAttribute("listOfServices", servicesService.readServices());
         return "services";
+    }
+    @GetMapping("/downloadResume")
+    public void downloadResume(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String realPath = request.getServletContext().getRealPath("/resume/");
+        Path path = Paths.get(realPath, "MyResume.pdf");
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=Deepak.pdf");
+        ServletOutputStream outputStream = response.getOutputStream();
+        Files.copy(path, outputStream);
+        outputStream.flush();
     }
 }

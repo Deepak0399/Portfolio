@@ -34,8 +34,8 @@
         <h2>Contact Us</h2>
         <h4> ${result} </h4>
         <div class="page_link">
-          <a href="index.jsp">Home</a>
-          <a href="contact.jsp">Contact</a>
+          <a href="${pageContext.request.contextPath}/client/home">Home</a>
+          <a href="${pageContext.request.contextPath}/client/contact">Contact</a>
         </div>
       </div>
     </div>
@@ -71,21 +71,21 @@
           <div class="col-md-6">
 
             <c:forEach var="err" items="${errors}">
-              <c:if test="${err.field == 'name'}"> ${err.defaultMessage} </c:if>
+              <c:if test="${err.field == 'name'}"> ${err.defaultMessage} <br> </c:if>
             </c:forEach>
             <div class="form-group">
               <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
             </div>
 
             <c:forEach var="err" items="${errors}">
-              <c:if test="${err.field == 'email'}"> ${err.defaultMessage} </c:if>
+              <c:if test="${err.field == 'email'}"> ${err.defaultMessage} <br> </c:if>
             </c:forEach>
             <div class="form-group">
               <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
             </div>
 
             <c:forEach var="err" items="${errors}">
-              <c:if test="${err.field == 'subject'}"> ${err.defaultMessage} </c:if>
+              <c:if test="${err.field == 'subject'}"> ${err.defaultMessage} <br> </c:if>
             </c:forEach>
             <div class="form-group">
               <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject">
@@ -96,7 +96,7 @@
 
           <div class="col-md-6">
               <c:forEach var="err" items="${errors}">
-                  <c:if test="${err.field == 'message'}"> ${err.defaultMessage} </c:if>
+                  <c:if test="${err.field == 'message'}"> ${err.defaultMessage} <br> </c:if>
               </c:forEach>
             <div class="form-group">
               <textarea class="form-control" name="message" id="message" rows="1" placeholder="Enter Message"></textarea>
