@@ -32,8 +32,8 @@
       <div class="banner_content text-center">
         <h2>About Us</h2>
         <div class="page_link">
-          <a href="index.jsp">Home</a>
-          <a href="about.jsp">About</a>
+          <a href="${pageContext.request.contextPath}/client/home">Home</a>
+          <a href="${pageContext.request.contextPath}/client/about">About</a>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
             is in beast beginning signs open god you're gathering whose gathered cattle let.
             Creature whales fruit unto meat the life beginning all in under give two.
           </p>
-          <a class="primary_btn" href="#"><span>Download CV</span></a>
+          <a class="primary_btn" href="${pageContext.request.contextPath}/client/downloadResume"><span>Download CV</span></a>
         </div>
       </div>
     </div>
